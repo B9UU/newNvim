@@ -114,6 +114,10 @@ return {
           --  the definition of its *type*, not where it was *defined*.
           map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
 
+          -- Execute a code action, usually your cursor needs to be on top of an error
+          -- or a suggestion from your LSP for this to activate.
+          map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
           ---@param method vim.lsp.protocol.Method
