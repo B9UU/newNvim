@@ -33,10 +33,11 @@ return {
         -- lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         python = { "ruff_format" },
+        json = { "jq" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'eslint_d', 'prettier', stop_after_first = true },
-        typescript = { 'eslint_d', 'prettier', stop_after_first = true },
+        javascript = { 'prettier', stop_after_first = true },
+        typescript = { 'prettier', stop_after_first = true },
       },
     },
   },
