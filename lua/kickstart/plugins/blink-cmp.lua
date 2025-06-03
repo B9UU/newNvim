@@ -51,14 +51,68 @@ return {
 			},
 
 			-- (Default) Only show the documentation popup when manually triggered
-			completion = { documentation = { auto_show = true } },
+			completion = {
+				documentation = { auto_show = true },
+				menu = {
+					draw = {
+						columns = {
+							{ "label",      "label_description", gap = 1 },
+							{ "source_name" },
+							{ "kind_icon",  "kind" },
+						},
+					}
+				}
+			},
 			signature = { enabled = true },
+
 
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "emoji", "sql" },
+				default = { "lsp", "buffer", "path", "snippets", "emoji", "sql" },
 				providers = {
+					lsp = {
+						name = "lsp",
+						enabled = true,
+						module = "blink.cmp.sources.lsp",
+						kind = "LSP",
+						min_keyword_length = 2,
+						-- When linking markdown notes, I would get snippets and text in the
+						-- suggestions, I want those to show only if there are no LSP
+						-- suggestions
+						--
+						-- Enabled fallbacks as this seems to be working now
+						-- Disabling fallbacks as my snippets wouldn't show up when editing
+						-- lua files
+						-- fallbacks = { "snippets", "buffer" },
+						score_offset = 90, -- the higher the number, the higher the priority
+					},
+					path = {
+						name = "Path",
+						module = "blink.cmp.sources.path",
+						score_offset = 25,
+						-- When typing a path, I would get snippets and text in the
+						-- suggestions, I want those to show only if there are no path
+						-- suggestions
+						fallbacks = { "snippets", "buffer" },
+						-- min_keyword_length = 2,
+						opts = {
+							trailing_slash = false,
+							label_trailing_slash = true,
+							get_cwd = function(context)
+								return vim.fn.expand(("#%d:p:h"):format(context.bufnr))
+							end,
+							show_hidden_files_by_default = true,
+						},
+					},
+					buffer = {
+						name = "Buffer",
+						enabled = true,
+						max_items = 3,
+						module = "blink.cmp.sources.buffer",
+						min_keyword_length = 2,
+						score_offset = 15, -- the higher the number, the higher the priority
+					},
 					emoji = {
 						module = "blink-emoji",
 						name = "Emoji",
