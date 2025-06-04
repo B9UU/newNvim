@@ -12,6 +12,19 @@ return {
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
 		dependencies = {
+			{
+				"giuxtaposition/blink-cmp-copilot",
+				dependencies = {
+					"zbirenbaum/copilot.lua",
+					cmd = "Copilot",
+					event = "InsertEnter",
+					suggestion = { enabled = false },
+					panel = { enabled = false },
+					config = function()
+						require("copilot").setup({})
+					end,
+				}
+			},
 			"rafamadriz/friendly-snippets",
 			"moyiz/blink-emoji.nvim",
 			"ray-x/cmp-sql",
@@ -48,6 +61,41 @@ return {
 				-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
 				-- Adjusts spacing to ensure icons are aligned
 				nerd_font_variant = "mono",
+				kind_icons = {
+					Copilot = "",
+					Text = '󰉿',
+					Method = '󰊕',
+					Function = '󰊕',
+					Constructor = '󰒓',
+
+					Field = '󰜢',
+					Variable = '󰆦',
+					Property = '󰖷',
+
+					Class = '󱡠',
+					Interface = '󱡠',
+					Struct = '󱡠',
+					Module = '󰅩',
+
+					Unit = '󰪚',
+					Value = '󰦨',
+					Enum = '󰦨',
+					EnumMember = '󰦨',
+
+					Keyword = '󰻾',
+					Constant = '󰏿',
+
+					Snippet = '󱄽',
+					Color = '󰏘',
+					File = '󰈔',
+					Reference = '󰬲',
+					Folder = '󰉋',
+					Event = '󱐋',
+					Operator = '󰪚',
+					TypeParameter = '󰬛',
+				},
+
+
 			},
 
 			-- (Default) Only show the documentation popup when manually triggered
@@ -69,8 +117,14 @@ return {
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "buffer", "path", "snippets", "emoji", "sql" },
+				default = { "lsp", "buffer", "copilot", "path", "snippets", "emoji", "sql" },
 				providers = {
+					copilot = {
+						name = "copilot",
+						module = "blink-cmp-copilot",
+						score_offset = 100,
+						async = true,
+					},
 					lsp = {
 						name = "lsp",
 						enabled = true,
