@@ -10,11 +10,14 @@ return {
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {
+        transparent = true,              -- Enable transparent background
         styles = {
+          sidebars = 'transparent',      -- Make sidebars transparent
+          floats = 'transparent',        -- Make floating windows transparent
           comments = { italic = false }, -- Disable italics in comments
         },
         on_colors = function(colors)
-          -- colors.bg = "#090909" -- Darker background
+          colors.bg = "#090909" -- Darker background
         end,
       }
 
@@ -22,7 +25,7 @@ return {
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.g.tokyonight_dark_float = false
-      -- vim.cmd.colorscheme 'tokyonight-moon'
+      vim.cmd.colorscheme 'tokyonight'
     end,
   },
 }

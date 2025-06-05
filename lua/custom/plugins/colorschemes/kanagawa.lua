@@ -1,12 +1,13 @@
 return {
     'rebelot/kanagawa.nvim',
+    enabled = true,
     config = function()
         local kana = require('kanagawa')
 
         kana.setup {
             transparent = true,
         }
-        vim.cmd.colorscheme 'kanagawa'
+        -- vim.cmd.colorscheme 'kanagawa'
 
         vim.keymap.set("n", "<leader>tt", function()
             kana.setup {
