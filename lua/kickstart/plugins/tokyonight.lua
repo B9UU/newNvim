@@ -6,7 +6,8 @@ return {
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
     enabled = true,
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+    transparent = true, -- Enable transparency for the background.
+    priority = 1000,    -- Make sure to load this before all the other start plugins.
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {

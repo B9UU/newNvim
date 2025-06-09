@@ -12,19 +12,19 @@ return {
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
 		dependencies = {
-			{
-				"giuxtaposition/blink-cmp-copilot",
-				dependencies = {
-					"zbirenbaum/copilot.lua",
-					cmd = "Copilot",
-					event = "InsertEnter",
-					suggestion = { enabled = false },
-					panel = { enabled = false },
-					config = function()
-						require("copilot").setup({})
-					end,
-				}
-			},
+			-- {
+			-- 	"giuxtaposition/blink-cmp-copilot",
+			-- 	dependencies = {
+			-- 		"zbirenbaum/copilot.lua",
+			-- 		cmd = "Copilot",
+			-- 		event = "InsertEnter",
+			-- 		suggestion = { enabled = false },
+			-- 		panel = { enabled = false },
+			-- 		config = function()
+			-- 			require("copilot").setup({})
+			-- 		end,
+			-- 	}
+			-- },
 			"rafamadriz/friendly-snippets",
 			"moyiz/blink-emoji.nvim",
 			"ray-x/cmp-sql",
@@ -100,6 +100,13 @@ return {
 
 			-- (Default) Only show the documentation popup when manually triggered
 			completion = {
+				trigger = {
+					show_on_blocked_trigger_characters = {},
+					show_on_characters = { ' ' },
+				},
+				ghost_text = {
+					enabled = true,
+				},
 				documentation = { auto_show = true },
 				menu = {
 					draw = {
@@ -119,6 +126,7 @@ return {
 			sources = {
 				default = { "lsp", "buffer", "copilot", "path", "snippets", "emoji", "sql" },
 				providers = {
+<<<<<<< Updated upstream
 					copilot = {
 						name = "copilot",
 						module = "blink-cmp-copilot",
@@ -139,12 +147,22 @@ return {
 							return items
 						end,
 					},
+=======
+>>>>>>> Stashed changes
 					lsp = {
 						name = "lsp",
 						enabled = true,
 						module = "blink.cmp.sources.lsp",
-						kind = "LSP",
+						-- kind = "LSP",
 						min_keyword_length = 2,
+
+						override = {
+							get_trigger_characters = function(self)
+								local trigger_characters = self:get_trigger_characters()
+								vim.list_extend(trigger_characters, { '\n', '\t', ' ' })
+								return trigger_characters
+							end
+						},
 						-- When linking markdown notes, I would get snippets and text in the
 						-- suggestions, I want those to show only if there are no LSP
 						-- suggestions
