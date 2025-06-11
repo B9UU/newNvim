@@ -1,32 +1,36 @@
 return {
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  {
     'folke/tokyonight.nvim',
     enabled = true,
-    transparent = true, -- Enable transparency for the background.
-    priority = 1000,    -- Make sure to load this before all the other start plugins.
+    priority = 1000,
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        transparent = true,              -- Enable transparent background
-        styles = {
-          sidebars = 'transparent',      -- Make sidebars transparent
-          floats = 'transparent',        -- Make floating windows transparent
-          comments = { italic = false }, -- Disable italics in comments
-        },
-        on_colors = function(colors)
-          colors.bg = "#090909" -- Darker background
-        end,
-      }
+      local tokyo = require('tokyonight')
+      local transparent_enabled = true
 
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.g.tokyonight_dark_float = false
-      vim.cmd.colorscheme 'tokyonight'
+      local function apply_tokyonight()
+        tokyo.setup {
+          style = "moon",
+          transparent = transparent_enabled,
+          styles = {
+            sidebars = 'transparent',
+            floats = 'transparent',
+            comments = { italic = false },
+          },
+          on_colors = function(colors)
+            colors.bg = "#090909" -- Darker background
+          end,
+        }
+        vim.cmd.colorscheme 'tokyonight'
+      end
+
+      -- Initial setup
+      apply_tokyonight()
+
+      -- Keymap to toggle transparency
+      vim.keymap.set("n", "<leader>tt", function()
+        transparent_enabled = not transparent_enabled
+        apply_tokyonight()
+      end, { desc = "Toggle TokyoNight transparency" })
     end,
   },
 }

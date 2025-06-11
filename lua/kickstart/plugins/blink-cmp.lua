@@ -48,17 +48,8 @@ return {
 						name = "lsp",
 						enabled = true,
 						module = "blink.cmp.sources.lsp",
-						-- kind = "LSP",
 						min_keyword_length = 2,
-
-						override = {
-							get_trigger_characters = function(self)
-								local trigger_characters = self:get_trigger_characters()
-								vim.list_extend(trigger_characters, { '\n', '\t', ' ' })
-								return trigger_characters
-							end
-						},
-						score_offset = 90, -- the higher the number, the higher the priority
+						score_offset = 90,
 					},
 					path = {
 						name = "Path",
@@ -80,7 +71,7 @@ return {
 						max_items = 3,
 						module = "blink.cmp.sources.buffer",
 						min_keyword_length = 2,
-						score_offset = 15, -- the higher the number, the higher the priority
+						score_offset = 15, 
 					},
 					emoji = {
 						module = "blink-emoji",
