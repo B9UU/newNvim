@@ -42,7 +42,7 @@ return {
 			},
 			signature = { enabled = true },
 			sources = {
-				default = { "lsp", "buffer", "copilot", "path", "snippets", "emoji", "sql" },
+				default = { "lsp", "buffer", "path", "snippets", "emoji", "sql" },
 				providers = {
 					lsp = {
 						name = "lsp",
@@ -71,7 +71,7 @@ return {
 						max_items = 3,
 						module = "blink.cmp.sources.buffer",
 						min_keyword_length = 2,
-						score_offset = 15, 
+						score_offset = 15,
 					},
 					emoji = {
 						module = "blink-emoji",
