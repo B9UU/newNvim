@@ -16,6 +16,24 @@ vim.o.smarttab = true
 vim.o.smartindent = true
 vim.o.autoindent = true
 
+-- indent options
+vim.opt.list = true
+-- vim.opt.listchars:append "lol:1"
+-- ufo options
+vim.o.foldcolumn = '1' -- show fold column
+vim.o.foldlevel = 99   -- default fold level
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.opt.fillchars = {
+  foldopen = '▼', -- U+25BC, bigger down arrow
+  foldclose = '▶', -- U+25B6, bigger right arrow
+  fold = ' ',
+  foldsep = ' ',
+  eob = ' ',
+}
+
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 -- Make line numbers default
 vim.o.number = true

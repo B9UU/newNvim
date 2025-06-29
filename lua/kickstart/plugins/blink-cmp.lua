@@ -42,13 +42,12 @@ return {
 			},
 			signature = { enabled = true },
 			sources = {
-				default = { "lsp", "buffer", "path", "snippets", "emoji", "sql" },
+				default = { "lsp", "buffer", "path", "emoji", "sql" },
 				providers = {
 					lsp = {
 						name = "lsp",
 						enabled = true,
 						module = "blink.cmp.sources.lsp",
-						min_keyword_length = 2,
 						score_offset = 90,
 					},
 					path = {
@@ -71,21 +70,21 @@ return {
 						max_items = 3,
 						module = "blink.cmp.sources.buffer",
 						min_keyword_length = 2,
-						score_offset = 15,
+						score_offset = 5,
 					},
 					emoji = {
 						module = "blink-emoji",
 						name = "Emoji",
-						score_offset = 15, -- Tune by preference
+						score_offset = 5, -- Tune by preference
 						opts = { insert = true }, -- Insert emoji (default) or complete its name
-						should_show_items = function()
-							return vim.tbl_contains(
-							-- Enable emoji completion only for git commits and markdown.
-							-- By default, enabled for all file-types.
-								{ "gitcommit", "markdown" },
-								vim.o.filetype
-							)
-						end,
+						-- should_show_items = function()
+						-- 	return vim.tbl_contains(
+						-- 	-- Enable emoji completion only for git commits and markdown.
+						-- 	-- By default, enabled for all file-types.
+						-- 		{ "gitcommit", "markdown" },
+						-- 		vim.o.filetype
+						-- 	)
+						-- end,
 					},
 					sql = {
 						-- IMPORTANT: use the same name as you would for nvim-cmp
